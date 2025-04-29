@@ -13,6 +13,7 @@ import {
   Row,
   Select,
   Space,
+  Spin,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
@@ -121,7 +122,13 @@ const EditProduct: React.FC = () => {
     setReviews(newReviews);
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: 24 }}>
