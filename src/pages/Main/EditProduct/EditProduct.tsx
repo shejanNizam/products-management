@@ -15,6 +15,7 @@ import {
   Space,
 } from "antd";
 import React, { useEffect, useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetCategoriesQuery } from "../../../redux/features/categories/categoriesApi";
 import {
@@ -125,7 +126,25 @@ const EditProduct: React.FC = () => {
   return (
     <div style={{ padding: 24 }}>
       {contextHolder}
-      <Card title={`Edit Product: ${product?.title}`}>
+      <Card
+        title={
+          <div className="flex justify-center items-center gap-4">
+            <Button
+              type="text"
+              onClick={() => navigate(-1)}
+              icon={
+                <span className="text-lg">
+                  {" "}
+                  <FaArrowLeft />{" "}
+                </span>
+              }
+              className="flex items-center justify-center w-8 h-8 hover:bg-gray-100 rounded-full"
+            />
+            <h2>{`Edit Product: ${product?.title}`}</h2>
+          </div>
+        }
+        //   title={`Edit Product: ${product?.title}`}
+      >
         <Form
           form={form}
           layout="vertical"

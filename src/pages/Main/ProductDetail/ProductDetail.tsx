@@ -13,11 +13,13 @@ import {
   Tag,
 } from "antd";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../../../redux/features/products/productsApi";
 import { Review } from "../../../types/product";
 
 const ProductDetail: React.FC = () => {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   //   console.log("params id ------------->>", id);
   const {
@@ -38,7 +40,23 @@ const ProductDetail: React.FC = () => {
   return (
     <div style={{ padding: 24 }}>
       <Card
-        title={product.title}
+        title={
+          <div className="flex justify-center items-center gap-4">
+            <Button
+              type="text"
+              onClick={() => navigate(-1)}
+              icon={
+                <span className="text-lg">
+                  {" "}
+                  <FaArrowLeft />{" "}
+                </span>
+              }
+              className="flex items-center justify-center w-8 h-8 hover:bg-gray-100 rounded-full"
+            />
+            <h2>{product.title}</h2>
+          </div>
+        }
+        // title={product.title}
         extra={
           <Link to={`/products/${product.id}/edit`}>
             <Button type="primary">Edit Product</Button>
