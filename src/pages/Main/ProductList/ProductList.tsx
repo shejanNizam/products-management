@@ -78,7 +78,7 @@ const ProductList: React.FC = () => {
   const filteredProducts = data?.products || [];
 
   return (
-    <Card title="Product List" style={{ margin: 20 }}>
+    <Card title={"Product List"} style={{ margin: 20 }}>
       <Table
         columns={columns}
         dataSource={filteredProducts}
