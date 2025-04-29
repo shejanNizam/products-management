@@ -81,7 +81,7 @@ const EditProduct: React.FC = () => {
         reviews,
       };
 
-      console.log("Submitting:----------------------------->>", updatedProduct);
+      console.log("Submitting:--------------->>", updatedProduct);
 
       await updateProduct(updatedProduct).unwrap();
       messageApi.success("Product updated successfully");
@@ -210,7 +210,7 @@ const EditProduct: React.FC = () => {
                     const parsedValue = parseFloat(
                       value?.replace(/\$\s?|(,*)/g, "") || "0"
                     );
-                    return isNaN(parsedValue) ? 0 : (parsedValue as 0 | number);
+                    return isNaN(parsedValue) ? 0 : parsedValue;
                   }}
                 />
               </Form.Item>
@@ -221,12 +221,25 @@ const EditProduct: React.FC = () => {
                 label="Discount Percentage"
                 rules={[{ required: true, message: "Please enter discount" }]}
               >
-                <InputNumber
+                {/* <InputNumber
                   style={{ width: "100%" }}
                   min={0}
                   max={100}
                   formatter={(value) => `${value}%`}
                   parser={(value) => value?.replace("%", "") || ""}
+                /> */}
+
+                <InputNumber
+                  style={{ width: "100%" }}
+                  min={0}
+                  max={100}
+                  formatter={(value) => `${value}%`}
+                  parser={(value) => {
+                    const parsedValue = parseFloat(
+                      value?.replace("%", "") || "0"
+                    );
+                    return isNaN(parsedValue) ? 0 : parsedValue;
+                  }}
                 />
               </Form.Item>
             </Col>
