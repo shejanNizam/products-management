@@ -23,6 +23,7 @@ export const productsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["products"],
     }),
+
     //  add product
     // addProduct: builder.mutation({
     //   query: (data) => ({
