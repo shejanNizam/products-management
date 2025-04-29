@@ -207,10 +207,8 @@ const EditProduct: React.FC = () => {
                   min={0}
                   formatter={(value) => `$ ${value}`}
                   parser={(value) => {
-                    const parsedValue = parseFloat(
-                      value?.replace(/\$\s?|(,*)/g, "") || "0"
-                    );
-                    return isNaN(parsedValue) ? 0 : parsedValue;
+                    parseFloat(value?.replace(/\$\s?|(,*)/g, "") || "0");
+                    return 0;
                   }}
                 />
               </Form.Item>
@@ -221,14 +219,6 @@ const EditProduct: React.FC = () => {
                 label="Discount Percentage"
                 rules={[{ required: true, message: "Please enter discount" }]}
               >
-                {/* <InputNumber
-                  style={{ width: "100%" }}
-                  min={0}
-                  max={100}
-                  formatter={(value) => `${value}%`}
-                  parser={(value) => value?.replace("%", "") || ""}
-                /> */}
-
                 <InputNumber
                   style={{ width: "100%" }}
                   min={0}
@@ -238,7 +228,11 @@ const EditProduct: React.FC = () => {
                     const parsedValue = parseFloat(
                       value?.replace("%", "") || "0"
                     );
-                    return isNaN(parsedValue) ? 0 : parsedValue;
+                    const clampedValue = Math.min(
+                      100,
+                      Math.max(0, isNaN(parsedValue) ? 0 : parsedValue)
+                    );
+                    return clampedValue === 100 ? 100 : 0;
                   }}
                 />
               </Form.Item>
