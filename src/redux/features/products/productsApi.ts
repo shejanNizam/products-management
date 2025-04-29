@@ -15,11 +15,6 @@ export const productsApi = baseApi.injectEndpoints({
       providesTags: ["products"],
     }),
 
-    // getProductById: builder.query<Product, number>({
-    //   query: (id) => `/${id}`,
-    //   providesTags: (result, error, id) => [{ type: "Product", id }],
-    // }),
-
     // get single product
     getProductById: builder.query<Product, number>({
       query: (id) => ({
@@ -39,9 +34,12 @@ export const productsApi = baseApi.injectEndpoints({
     // }),
 
     //  edit product
-    updteProductById: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/${id}`,
+    updteProductById: builder.mutation<
+      Product,
+      Partial<Product> & Pick<Product, "id">
+    >({
+      query: ({ id, ...data }) => ({
+        url: `products/${id}`,
         method: "PATCH",
         body: data,
       }),
