@@ -1,11 +1,20 @@
+import { ProductsResponse } from "../../../types/product";
 import baseApi from "../../api/baseApi";
 
 export const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    // getProducts: builder.query<ProductsResponse,{ skip?: number; limit?: number }>({
+    //   query: ({ skip = 0, limit = 10 }) => `?skip=${skip}&limit=${limit}`,
+    //   providesTags: ["Product"],
+    // }),
+
     // get products
-    getAllProducts: builder.query({
-      query: () => ({
-        url: "/products",
+    getAllProducts: builder.query<
+      ProductsResponse,
+      { skip?: number; limit?: number }
+    >({
+      query: ({ skip = 0, limit = 10 }) => ({
+        url: `/products?skip=${skip}&limit=${limit}`,
         method: "GET",
       }),
       providesTags: ["products"],
